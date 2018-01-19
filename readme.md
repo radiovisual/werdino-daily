@@ -21,7 +21,7 @@ werdino().then(data => {
 
 ## CLI Usage
 
-Install globally with `$ npm install werdino-daily` to get the cli version
+Install globally with `$ npm install -g werdino-daily` to get the cli version
 
 ```
 $ werdino-daily
