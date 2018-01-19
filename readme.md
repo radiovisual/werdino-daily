@@ -1,4 +1,4 @@
-# werdino-daily [![Build Status](https://travis-ci.org/radiovisual/werdino-daily.svg?branch=master)](https://travis-ci.org/radiovisual/werdino-daily)
+# werdino-daily [![Build Status](https://travis-ci.org/radiovisual/werdino-daily.svg?branch=master)](https://travis-ci.org/radiovisual/werdino-daily) [![Coverage Status](https://coveralls.io/repos/github/radiovisual/werdino-daily/badge.svg?branch=master)](https://coveralls.io/github/radiovisual/werdino-daily?branch=master)
 
 > :pizza: :hamburger: The Werdino daily menu in English and German
 
