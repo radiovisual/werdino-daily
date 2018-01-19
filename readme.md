@@ -15,6 +15,8 @@ $ npm install -g werdino-daily
 const werdino = require('werdino-daily');
 
 werdino().then(data => {
+    const { de, en } = data;
+
     // ...
 }
 ```

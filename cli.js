@@ -21,7 +21,8 @@ werdinoCli().then(data => {
 
 	var options = cli.input[0];
 
-	const pad = options === 'md' ? '*' : '';
+	const markdown = options === 'md';
+	const pad = markdown ? '*' : '';
 
 	spinner.succeed();
 
@@ -30,15 +31,26 @@ werdinoCli().then(data => {
 	const {de, en} = data;
 	let str = '';
 
+	if (markdown) {
+		console.log(`(English) Werdino menu for ${todaysItem}\n\n`);
+	}
+
 	de.forEach((item, i) => {
-		str += boxen(`${chalk.gray(en[i].title)}`, {padding: 0, margin: 0, dimBorder: true});
+		if (markdown) {
+			str += `> ${chalk.gray(en[i].title)}`;
+		} else {
+			str += boxen(`${chalk.gray(en[i].title)}`, {padding: 0, margin: 0, dimBorder: true});
+		}
+		
 		str += '\n\n';
 
 		str += chalk.cyan(`  ${pad}${en[i].mealTitle}${pad}`);
 		str += chalk.white(` ${en[i].description}\n`);
 
-		str += chalk.magenta(`  ${pad}${item.mealTitle}${pad}`);
-		str += chalk.white(` ${item.description}\n`);
+		if (options !== 'md') {
+			str += chalk.magenta(`  ${pad}${item.mealTitle}${pad}`);
+			str += chalk.white(` ${item.description}\n`);
+		}
 
 		str += chalk.gray(`  ${item.price}`);
 		str += '\n\n';
