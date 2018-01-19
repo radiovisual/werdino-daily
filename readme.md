@@ -10,4 +10,19 @@ $ npm install -g werdino-daily
 ```
 
 ## Usage
+
+```js
+const werdino = require('werdino-daily');
+
+werdino().then(data => {
+    // ...
+}
+```
+
+## CLI Usage
+
+```
+$ werdino-daily
+```
+
 ![](media/screenshot.png)
