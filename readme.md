@@ -6,7 +6,7 @@
 ## Install
 
 ```
-$ npm install -g werdino-daily
+$ npm install werdino-daily
 ```
 
 ## Usage
@@ -16,15 +16,23 @@ const werdino = require('werdino-daily');
 
 werdino().then(data => {
     const { de, en } = data;
-
-    // ...
 }
 ```
 
 ## CLI Usage
+
+Install globally with `$ npm install werdino-daily` to get the cli version
 
 ```
 $ werdino-daily
 ```
 
 ![](media/screenshot.png)
+
+```
+$ werdino-daily md
+```
+
+Output Markdown to paste the output into Slack or elsewhere.
+
+![image](https://user-images.githubusercontent.com/5614571/35171310-a98cce60-fd63-11e7-92c1-9e3ff3d8138c.png)
