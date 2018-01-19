@@ -17,6 +17,7 @@ const spinner = ora(`Fetching menu for ${chalk.yellow(todaysItem)}`).start();
 const cli = meow(`
 	Usage
 	  $ werdino-daily
+	  $ werdino-daily md
 `);
 
 werdinoCli().then(data => {
