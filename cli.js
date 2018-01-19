@@ -24,6 +24,8 @@ werdinoCli().then(data => {
 
 	const markdown = options === 'md';
 	const pad = markdown ? '*' : '';
+	const block = markdown ? '>' : '';
+	const em = markdown ? '_' : '';
 
 	spinner.succeed();
 
@@ -33,12 +35,12 @@ werdinoCli().then(data => {
 	let str = '';
 
 	if (markdown) {
-		console.log(`(English) Werdino menu for ${todaysItem}\n\n`);
+		console.log(`:uk: :us: Werdino menu for ${todaysItem}\n`);
 	}
 
 	de.forEach((item, i) => {
 		if (markdown) {
-			str += `> *${chalk.gray(en[i].title)}*`;
+			str += `${block} *${chalk.gray(en[i].title)}*`;
 		} else {
 			str += boxen(`${chalk.gray(en[i].title)}`, {
 				padding: 0,
@@ -47,17 +49,17 @@ werdinoCli().then(data => {
 			});
 		}
 
-		str += '\n\n';
+		str += '\n';
 
-		str += chalk.cyan(`  ${pad}${en[i].mealTitle}${pad}`);
-		str += chalk.white(` ${en[i].description}\n`);
+		str += chalk.cyan(`${block} ${pad}${en[i].mealTitle}${pad}\n`);
+		str += chalk.white(`${block} ${en[i].description}\n`);
 
 		if (!markdown) {
-			str += chalk.magenta(`  ${pad}${item.mealTitle}${pad}`);
+			str += chalk.magenta(` ${pad}${item.mealTitle}${pad}\n`);
 			str += chalk.white(` ${item.description}\n`);
 		}
 
-		str += chalk.gray(`  ${item.price}`);
+		str += chalk.gray(`${block} ${em}${item.price}${em}`);
 		str += '\n\n';
 	});
 
