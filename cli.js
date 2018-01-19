@@ -17,7 +17,12 @@ const cli = meow(`
 	  $ werdino-daily
 `);
 
-werdinoCli(cli.input[0]).then(data => {
+werdinoCli().then(data => {
+
+	var options = cli.input[0];
+
+	const pad = options === 'md' ? '*' : '';
+
 	spinner.succeed();
 
 	console.log();
@@ -26,13 +31,13 @@ werdinoCli(cli.input[0]).then(data => {
 	let str = '';
 
 	de.forEach((item, i) => {
-		str += boxen(`${chalk.gray(en[i].title)}`, {padding: 1, margin: 0, dimBorder: true});
+		str += boxen(`${chalk.gray(en[i].title)}`, {padding: 0, margin: 0, dimBorder: true});
 		str += '\n\n';
 
-		str += chalk.cyan(`  *${en[i].mealTitle}*`);
+		str += chalk.cyan(`  ${pad}${en[i].mealTitle}${pad}`);
 		str += chalk.white(` ${en[i].description}\n`);
 
-		str += chalk.magenta(`  *${item.mealTitle}*`);
+		str += chalk.magenta(`  ${pad}${item.mealTitle}${pad}`);
 		str += chalk.white(` ${item.description}\n`);
 
 		str += chalk.gray(`  ${item.price}`);
