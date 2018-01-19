@@ -8,7 +8,9 @@ const zp = require('simple-zeropad');
 const werdinoCli = require('.');
 
 const today = new Date();
-const todaysItem = `${today.getFullYear()}-${zp(today.getMonth() + 1)}-${zp(today.getDate())}`;
+const todaysItem = `${today.getFullYear()}-${zp(today.getMonth() + 1)}-${zp(
+	today.getDate()
+)}`;
 
 const spinner = ora(`Fetching menu for ${chalk.yellow(todaysItem)}`).start();
 
@@ -18,8 +20,7 @@ const cli = meow(`
 `);
 
 werdinoCli().then(data => {
-
-	var options = cli.input[0];
+	const options = cli.input[0];
 
 	const markdown = options === 'md';
 	const pad = markdown ? '*' : '';
@@ -37,17 +38,21 @@ werdinoCli().then(data => {
 
 	de.forEach((item, i) => {
 		if (markdown) {
-			str += `> ${chalk.gray(en[i].title)}`;
+			str += `> *${chalk.gray(en[i].title)}*`;
 		} else {
-			str += boxen(`${chalk.gray(en[i].title)}`, {padding: 0, margin: 0, dimBorder: true});
+			str += boxen(`${chalk.gray(en[i].title)}`, {
+				padding: 0,
+				margin: 0,
+				dimBorder: true
+			});
 		}
-		
+
 		str += '\n\n';
 
 		str += chalk.cyan(`  ${pad}${en[i].mealTitle}${pad}`);
 		str += chalk.white(` ${en[i].description}\n`);
 
-		if (options !== 'md') {
+		if (!markdown) {
 			str += chalk.magenta(`  ${pad}${item.mealTitle}${pad}`);
 			str += chalk.white(` ${item.description}\n`);
 		}
