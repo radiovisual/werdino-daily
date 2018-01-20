@@ -1,9 +1,9 @@
 {
-	"name": "werdino-cli",
+	"name": "werdino-daily",
 	"version": "1.0.0",
-	"description": "Werdino daily menu, in your terminal!",
+	"description": "Werdino daily menu in English and German",
 	"license": "MIT",
-	"repository": "radiovisual/werdino-cli",
+	"repository": "radiovisual/werdino-daily",
 	"author": {
 		"name": "Michael Wuergler",
 		"email": "wuergler@gmail.com",
@@ -23,7 +23,9 @@
 	"keywords": [
 		"cli-app",
 		"cli",
-		""
+		"werdino",
+		"english",
+		"german"
 	],
 	"dependencies": {
 		"boxen": "^1.3.0",
