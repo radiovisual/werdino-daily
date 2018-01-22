@@ -57,7 +57,7 @@ module.exports = () => {
 
 				german += `[MEAL TITLE] ${mealTitle}\n`;
 				german += `[MEAL DESCRIPTION] ${mealDescription}\n`;
-				german += `[MEAL PRICES] ${item.meals[todaysItem].prices.join(' | ')}\n`;
+				german += `[MEAL PRICES] ${item.meals[todaysItem].prices.map(s => condense(s)).join(' | ')}\n`;
 				german += '---\n';
 			});
 
