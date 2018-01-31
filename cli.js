@@ -60,7 +60,7 @@ werdinoCli().then(data => {
 			str += chalk.white(` ${item.description}\n`);
 		}
 
-		str += chalk.gray(`${block} ${em}${item.price}${em}`);
+		str += chalk.gray(`${block} ${em}${item.price.replace(/\s+/, ' ').trim()}${em}`);
 		str += '\n\n';
 	});
 

@@ -12,7 +12,7 @@ test('exports a promise with menu data', () => {
 		expect(data.de[0].description).toBe(
 			'(Russland) mit Joghurtdip und Kräuter auf Quinoa mit Tomaten und Butterbohnen'
 		);
-		expect(data.de[0].price).toBe('CHF 9.50 | CHF 13.50');
+		expect(data.de[0].price).toBe('CHF 9.50');
 
 		expect(data.en[0].title).toBe('Brasserie');
 		expect(data.en[0].mealTitle).toBe('Grilled Zander Fillet');
