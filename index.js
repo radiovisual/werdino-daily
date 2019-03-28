@@ -24,12 +24,18 @@ function objectify(text) {
 			const descr = '[MEAL DESCRIPTION] ';
 			const mealTitle = '[MEAL TITLE] ';
 
+			let descText = '';
+
 			if (s.indexOf(title) === 0) {
 				obj.title = titleize(s.replace(title, ''));
 			} else if (s.indexOf(mealTitle) === 0) {
 				obj.mealTitle = titleize(s.replace(mealTitle, ''));
 			} else if (s.indexOf(descr) === 0) {
-				obj.description = s.replace(descr, '');
+				descText = s.replace(descr, '');
+
+				if (descText.trim().length > 0) {
+					obj.description = descText;
+				}
 			} else if (s.indexOf(price) === 0) {
 				obj.price = s.replace(price, '');
 			}
