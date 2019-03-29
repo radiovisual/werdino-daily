@@ -1,1 +1,1 @@
-clock:  node clock.js
+clock:  node handler.js
