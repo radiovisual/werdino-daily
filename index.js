@@ -18,7 +18,6 @@ function objectify (text) {
   const meals = []
 
   parts.forEach(section => {
-    console.log({ section })
     const obj = {}
 
     section.split('\n').forEach(s => {
@@ -108,7 +107,7 @@ run().then(data => {
     }
   )
     .then(response => {
-      console.log(response)
+      console.log(response.status, response.statusText)
     })
     .catch(error => console.error('Error:', error))
 })
