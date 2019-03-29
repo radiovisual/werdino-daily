@@ -1,38 +1,30 @@
-# werdino-daily [![Build Status](https://travis-ci.org/radiovisual/werdino-daily.svg?branch=master)](https://travis-ci.org/radiovisual/werdino-daily) [![Coverage Status](https://coveralls.io/repos/github/radiovisual/werdino-daily/badge.svg?branch=master)](https://coveralls.io/github/radiovisual/werdino-daily?branch=master)
+# werdino-daily
 
-> :pizza: :hamburger: The Werdino daily menu in English and German
-
-
-## Install
-
-```
-$ npm install werdino-daily
-```
-
-## Usage
-
-```js
-const werdino = require('werdino-daily');
-
-werdino().then(data => {
-    const { de, en } = data;
-}
-```
-
-## CLI Usage
-
-Install globally with `$ npm install -g werdino-daily` to get the cli version
-
-```
-$ werdino-daily
-```
+> :pizza: :hamburger: The Werdino daily menu in English and German, delivered straight to Slack via AWS Lambda
 
 ![](media/screenshot.png)
 
+## Serverless
+
+> :bulb: The main function is found in `handler.js`
+
+### Getting Started
+
+1. Make sure you have the Serverless framework installed globally: `npm install -g serverless`
+2. Use the `SLACK_WEBHOOK_ADDRESS` keys in `config/config.dev.json` and `config/config.prod.json` for the `dev` and `prod` deployments
+3. Download and save your Google API credential file and save it with the filename of `google-cloud-creds.json` at the root of this directory. Make sure the credentials in thie file are allowed to access the Google Translate API.
+
+### Deploy to lambda
+
+Serverless will do a lot of magic with the `deploy` command, including wrapping your function in a `.zip` directory and uploading to S3 (and uploaded to AWS Lambda), configuring CloudWatch, configuring IAM, etc:
+
 ```
-$ werdino-daily md
+$ serverless deploy --stage dev
+$ serverless deploy --stage prod
 ```
 
-Output Markdown to paste the output into Slack or elsewhere.
+### Reading the logs
 
-![image](https://user-images.githubusercontent.com/5614571/35171310-a98cce60-fd63-11e7-92c1-9e3ff3d8138c.png)
+```
+$ serverless logs --function runWerdino --tail
+```

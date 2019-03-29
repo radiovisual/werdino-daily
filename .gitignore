@@ -3,3 +3,10 @@ yarn.lock
 .nyc_output
 coverage
 coveralls
+.env
+jspm_packages
+
+# Serverless directories
+.serverless
+
+google-cloud-creds.json
