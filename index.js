@@ -1,11 +1,14 @@
 const werdino = require('werdino')
-const translate = require('google-translate-api')
+const { Translate } = require('@google-cloud/translate')
 const condense = require('condense-whitespace')
 const getDayKey = require('./helpers/getDayKey')
-const todaysItemKey = getDayKey();
+const todaysItemKey = getDayKey()
+
+// Creates a client
+const translate = new Translate()
 
 function objectify (text) {
-  const parts = text.split('---\n')
+  const parts = text.split('🦄\n')
 
   const meals = []
 
@@ -13,10 +16,10 @@ function objectify (text) {
     const obj = {}
 
     section.split('\n').forEach(s => {
-      const title = '[TITLE] '
-      const price = '[MEAL PRICES] '
-      const descr = '[MEAL DESCRIPTION] '
-      const mealTitle = '[MEAL TITLE] '
+      const title = '[T_] '
+      const price = '[M_P] '
+      const descr = '[M_D] '
+      const mealTitle = '[M_T] '
 
       if (s.indexOf(title) === 0) {
         obj.title = s.replace(title, '')
@@ -45,42 +48,49 @@ const getWerdinoData = () => {
         // Don't break the JSON formatting when a single quote is present
         const title = condense(item.title)
 
-        german += `[TITLE] ${title}\n`
+        german += `[T_] ${title}\n`
 
         const mealTitle = condense(item.meals[todaysItemKey].title)
         const mealDescription = condense(item.meals[todaysItemKey].description)
 
-        german += `[MEAL TITLE] ${mealTitle}\n`
+        german += `[M_T] ${mealTitle}\n`
 
         if (mealDescription) {
-          german += `[MEAL DESCRIPTION] ${mealDescription}\n`
+          german += `[M_D] ${mealDescription}\n`
         }
 
-        german += `[MEAL PRICES] ${item.meals[todaysItemKey].prices
+        german += `[M_P] ${item.meals[todaysItemKey].prices
           .map(s => condense(s))
           .join(' | ')}\n`
-        german += '---\n'
+        german += '🦄\n'
       })
 
-      translate(german).then(translated => {
-        const germanObject = objectify(german)
-        const englishObject = objectify(translated.text)
+      translate
+        .translate(german, 'en')
+        .then(translations => {
+          translations = Array.isArray(translations)
+            ? translations
+            : [translations]
 
-        // Merga the english translations with the German to make the block building easier
-        englishObject.forEach((obj, index) => {
-          if (obj.title) {
-            germanObject[index].titleEn = obj.title
-          }
-          if (obj.mealTitle) {
-            germanObject[index].mealTitleEn = obj.mealTitle
-          }
-          if (obj.description) {
-            germanObject[index].descriptionEn = obj.description
-          }
+          const germanObject = objectify(german)
+          const englishObject = objectify(translations[0])
+
+          // Merga the english translations with the German to make the block building easier
+          englishObject.forEach((obj, index) => {
+            if (obj.title) {
+              germanObject[index].titleEn = obj.title
+            }
+            if (obj.mealTitle) {
+              germanObject[index].mealTitleEn = obj.mealTitle
+            }
+            if (obj.description) {
+              germanObject[index].descriptionEn = obj.description
+            }
+          })
+
+          resolve(germanObject)
         })
-
-        resolve(germanObject)
-      }).catch(err => console.log(`Error translating: ${err}`));
+        .catch(err => console.log(`Error translating: ${err}`))
     })
   })
 }

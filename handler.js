@@ -31,6 +31,4 @@ function runWerdino() {
   }).catch(err => console.log(`Error in getWerdinoData: ${err}`));
 }
 
-runWerdino();
-
-// module.exports = runWerdino;
+module.exports.runWerdino = runWerdino;

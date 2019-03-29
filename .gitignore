@@ -8,3 +8,5 @@ jspm_packages
 
 # Serverless directories
 .serverless
+
+google-cloud-creds.json
