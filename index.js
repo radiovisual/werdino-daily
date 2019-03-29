@@ -88,6 +88,7 @@ const getWerdinoData = () => {
             }
           })
 
+          console.log(`Cost: ${german.length} characters * 0.00002/per char = ${german.length * 0.00002} USD`)
           resolve(germanObject)
         })
         .catch(err => console.log(`Error translating: ${err}`))
