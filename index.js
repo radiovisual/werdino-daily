@@ -1,16 +1,8 @@
-'use strict'
 const werdino = require('werdino')
 const translate = require('google-translate-api')
 const condense = require('condense-whitespace')
-const fetch = require('fetch-everywhere')
-const zp = require('simple-zeropad');
-const messageBuilder = require('./messageBuilder')
-
-// A key in the form of 2018-01-17
-const today = new Date()
-const todaysItem = `${today.getFullYear()}-${zp(today.getMonth() + 1)}-${zp(
-  today.getDate()
-)}`
+const getDayKey = require('./helpers/getDayKey')
+const todaysItemKey = getDayKey();
 
 function objectify (text) {
   const parts = text.split('---\n')
@@ -44,7 +36,7 @@ function objectify (text) {
   return meals
 }
 
-const run = () => {
+const getWerdinoData = () => {
   let german = ''
 
   return new Promise(resolve => {
@@ -55,8 +47,8 @@ const run = () => {
 
         german += `[TITLE] ${title}\n`
 
-        const mealTitle = condense(item.meals[todaysItem].title)
-        const mealDescription = condense(item.meals[todaysItem].description)
+        const mealTitle = condense(item.meals[todaysItemKey].title)
+        const mealDescription = condense(item.meals[todaysItemKey].description)
 
         german += `[MEAL TITLE] ${mealTitle}\n`
 
@@ -64,7 +56,7 @@ const run = () => {
           german += `[MEAL DESCRIPTION] ${mealDescription}\n`
         }
 
-        german += `[MEAL PRICES] ${item.meals[todaysItem].prices
+        german += `[MEAL PRICES] ${item.meals[todaysItemKey].prices
           .map(s => condense(s))
           .join(' | ')}\n`
         german += '---\n'
@@ -88,28 +80,9 @@ const run = () => {
         })
 
         resolve(germanObject)
-      })
+      }).catch(err => console.log(`Error translating: ${err}`));
     })
   })
 }
 
-run().then(data => {
-  const blocks = messageBuilder(data)
-
-  fetch(
-    'https://hooks.slack.com/services/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',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ blocks })
-    }
-  )
-    .then(response => {
-      console.log(response.status, response.statusText)
-    })
-    .catch(error => console.error('Error:', error))
-})
-
-module.exports = run
+module.exports = getWerdinoData
