@@ -8,6 +8,7 @@ const getTodaysDate = () => {
   var d = new Date()
 
   var options = {
+    weekday: 'long',
     day: 'numeric',
     month: 'long',
     year: 'numeric'
@@ -24,7 +25,7 @@ const getIconForTitle = title => {
   const lowerTitle = title.toLowerCase()
   switch (lowerTitle) {
     case 'brasserie':
-      return ':hamburger:'
+      return ':meat_on_bone:'
     case 'grün und natürlich':
       return ':broccoli:'
     case 'feuer und flamme':
@@ -107,7 +108,7 @@ function messageBuilder (obj) {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `Werdino menu for ${getTodaysDate()}`
+        text: `Werdino menu for *${getTodaysDate()}*\n \n`
       }
     }
   ]
